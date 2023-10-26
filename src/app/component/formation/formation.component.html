@@ -218,13 +218,12 @@ full-calendar {
                                 <hr> 
                                 <hr>            
                                 <h4 class="title">Gestion des formations<br />
-                                <br />
-                                <br />
+                              
                                     <small>Mohamed Aziz Jaziri</small>
                                 </h4>
                             </a>
                         </div>
-                        <p class="description text-center"> Modules de formation interactifs sur les concepts de trading et d'investissement.
+                        <p class="description text-center">Explorez nos formations interactifs pour acquérir une compréhension approfondie des concepts de trading et d'investissement et ceux via nos réunions, conférences et séminaires.
                         </p>
                     </div>
                     <hr>
@@ -276,7 +275,8 @@ full-calendar {
                 <td>{{i.organisateur}}</td>
                   <td><button type="submit" class="btn btn-secondary" (click)="deleteFormation(i.id)">delete</button></td>      
                  <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="edit(i)">update</button></td>
-              </tr>
+                 <td><button type="submit" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal2" (click)="getParticipant(i.id)">Afficher liste des participants</button></td>      
+                </tr>
           </tbody>
     </table>
 </div>
@@ -287,6 +287,10 @@ full-calendar {
         <full-calendar  [options]='calendarOptions' ></full-calendar>
     </div>
 </div>
+<hr class="my-4 custom-hr" />
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1" >Line Chart Formations</button>
+
+
 </div>
   <!--Modification formation-->
  <div class="modal" tabindex="-1" id="exampleModal" data-backdrop="false">
@@ -340,6 +344,70 @@ full-calendar {
                   <input type="submit" value="Update" class="btn btn-primary" >
                 </div>
     </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Affichage des participants a un évenement-->
+<div class="modal" tabindex="-1" id="exampleModal2" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-right">Liste des participants</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="content table-responsive table-full-width">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>CIN</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="ListParticipant.length>0; else pasdeparticiapnts">
+                <tr *ngFor="let i of ListParticipant">
+                  <td>{{i.firstName}}</td>
+                  <td>{{i.lastName}}</td>
+                  <td>{{i.email}}</td>
+                  <td>{{i.cin}}</td>
+                </tr>
+              </ng-container>     
+            <ng-template #pasdeparticiapnts>
+              Pas de participants 
+          </ng-template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!--stat formations-->
+  <div class="modal" tabindex="-1" id="exampleModal1" data-backdrop="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Line chart sur les formations </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+      
+          <div>
+            <canvas id="formationChart" width="400" height="400"></canvas>
+          </div>
+  
+    
+    
         </div>
       </div>
     </div>

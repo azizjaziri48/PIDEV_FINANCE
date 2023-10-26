@@ -24,4 +24,17 @@ export class SupportService {
  getSupport(Id : any){
     return  this.httpClient.get(`${this.API_URL}/get/${Id}`)
   }
+  getSupportBytype(type : any){
+    return  this.httpClient.get(`${this.API_URL}/getpartype/${type}`)
+  }
+  getSupportBytypevideo(){
+    return  this.httpClient.get(`${this.API_URL}/getTypeVideo`)
+  }
+  getSupportBytypelivre(){
+    return  this.httpClient.get(`${this.API_URL}/getTypeLivre`)
+  }
+  getSupportBytypearticle(){
+    return  this.httpClient.get(`${this.API_URL}/getTypeArticle`)
+  }
+
 }

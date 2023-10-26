@@ -27,4 +27,7 @@ export class FormationService {
   getFormationselonperiode(date_debut : any,date_fin : any){
     return  this.httpClient.get(`${this.API_URL}/betweendate/${date_debut}/${date_fin}`)
   }
+  getListedesparticipants(idFormation : any){
+    return  this.httpClient.get(`http://localhost:8083/pi_back/client/clients-with-formations/${idFormation}`)
+  }
 }

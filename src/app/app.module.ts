@@ -17,6 +17,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { SupportComponent } from './component/support/support.component';
+import { ProjetIComponent } from './component/projet-i/projet-i.component';
 
 
 FullCalendarModule.registerPlugins([
@@ -40,6 +41,7 @@ FullCalendarModule.registerPlugins([
     AdminLayoutComponent,
     FormationComponent,
     SupportComponent,
+    ProjetIComponent,
     
 
   ],

@@ -167,6 +167,7 @@ full-calendar {
                                     <div class="form-group">
                                         <label>Type du support </label>
                                         <select id="input-last-name" class="form-control form-control-alternative" name="type" [(ngModel)]="Support.type" placeholder="Selectionner le type ..">
+                                        <option value="" disabled selected>Selectionner le type de support </option>
                                         <option value="VIDEO">VIDEO</option>
                                         <option value="LIVRE">LIVRE</option>
                                         <option value="ARTICLE">ARTICLE</option>                 
@@ -201,19 +202,18 @@ full-calendar {
                     <div class="content">
                         <div class="author">
                             <a href="#">
-                                <hr>
-                                <hr>
-                                <hr>
-                                <hr> 
-                                <hr>            
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>          
                                 <h4 class="title">Gestion des supports pédagogique<br />
-                                <br />
-                                <br />
+                             
                                     <small>Mohamed Aziz Jaziri</small>
                                 </h4>
                             </a>
                         </div>
-                        <p class="description text-center"> Modules de formation interactifs sur les concepts de trading et d'investissement.
+                        <p class="description text-center"> Bibliothèque de supports pédagogiques, y compris des vidéos, des articles et des livres électroniques.
                         </p>
                     </div>
                     <hr>
@@ -229,6 +229,16 @@ full-calendar {
     <div class="header pff">
         <h4 class="title ">Liste des supports pédagogique</h4>
     </div>
+    <form>
+      <div class="form-group d-flex align-items-center">
+        <select id="input-last-name" class="form-control form-control-alternative mr-2" name="type" [(ngModel)]="ttype" (ngModelChange)="getSupportBytype()">
+          <option value="" disabled selected>Selectionner le type de support</option>
+          <option value="VIDEO">VIDEO</option>
+          <option value="LIVRE">LIVRE</option>
+          <option value="ARTICLE">ARTICLE</option>
+        </select>
+      </div>
+    </form>
     <table class="table table-hover table-striped">
           <thead>
               <tr>
@@ -266,6 +276,9 @@ full-calendar {
     </table>
 </div>
 <hr class="my-4 custom-hr" />
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1" >Type des supports pédagogique</button>
+
 </div>
 
   <!--Modification support-->
@@ -307,4 +320,26 @@ full-calendar {
       </div>
     </div>
   </div>
+  <!--stat support pédagogique-->
+  <div class="modal" tabindex="-1" id="exampleModal1" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Type des supports pédagogique </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+    
+        <div>
+          <canvas id="lineChart1" width="400" height="400"></canvas>
+        </div>
+
   
+  
+      </div>
+    </div>
+  </div>
+</div>

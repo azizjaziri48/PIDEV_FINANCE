@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Formation } from 'app/Models/Formation';
 import { FormationService } from 'app/services/formation.service';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, CalendarApi,EventInput } from '@fullcalendar/core';
+import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-formation',
@@ -103,6 +104,9 @@ export class FormationComponent {
   calendarEvents: EventInput[] = [];
   date_Debut:any; 
   date_Fin:any; 
+  chart: any;
+  formations: Formation[] = [];
+  ListParticipant:any; 
   constructor(private FormationService:FormationService) { 
     this.getAllFormation();
   }
@@ -129,6 +133,8 @@ export class FormationComponent {
         date_fin:null, 
         organisateur:null
        }
+       this.createChart();
+       this.getData();
     }
     calendarOptions: CalendarOptions= {
       headerToolbar: {
@@ -174,6 +180,12 @@ export class FormationComponent {
       
     });
   }
+  
+  getParticipant(id:any) {
+    this.FormationService.getListedesparticipants(id).subscribe(res => {
+      this.ListParticipant = res;      
+    });
+  }
 
   addFormation(){
     this.FormationService.addFormation(this.Formation).subscribe(()=> this.getAllFormation());
@@ -205,6 +217,92 @@ export class FormationComponent {
         .subscribe((res) => {
           this.listFormation = res;
         });     }
+
+        
+  createChart() {
+    let ctx: any = document.getElementById("formationChart") as HTMLCanvasElement;
+
+    // Obtenez vos données de formation et formatez-les pour le graphique
+    const data = this.formatFormationData(this.formations);
+
+    const chartData = {
+      labels: data.labels,
+      datasets: [
+        {
+          label: "Nombre de Formations",
+          data: data.data,
+          backgroundColor: "#b91d47",
+          borderColor: "lightblue",
+          fill: false,
+          lineTension: 0,
+          radius: 5
+        }
+      ]
+    };
+
+    const options = {
+      responsive: true,
+      title: {
+        display: true,
+        position: "top",
+        text: "Formations par date",
+        fontSize: 18,
+        fontColor: "#111"
+      },
+      legend: {
+        display: true,
+        position: "bottom",
+        labels: {
+          fontColor: "#333",
+          fontSize: 16
+        }
+      },   
+      scales: {
+        y: {
+          beginAtZero: true, 
+          stepSize: 1, 
+          callback: function (value) {
+            return Number.isInteger(value) ? value : ''; 
+          }
+        }
+      }
+    };
+
+    this.chart = new Chart(ctx, {
+      type: "line",
+      data: chartData,
+      options: options
+    });
+  }
+
+  getData() {
+    this.FormationService.getAllFormation().subscribe((formations: Formation[]) => {
+      this.formations = formations;
+      this.chart.data.datasets[0].data = this.formatFormationData(formations).data;
+      this.chart.data.labels = this.formatFormationData(formations).labels;
+      this.chart.update();
+    });
+  }
+
+  formatFormationData(formations: Formation[]): { labels: string[], data: number[] } {
+    const labelCounts: { [date: string]: number } = {};
+  
+    formations.forEach((formation: Formation) => {
+      const date = formation.date_debut;
+  
+      if (labelCounts[date]) {
+        labelCounts[date]++;
+      } else {
+        labelCounts[date] = 1;
+      }
+    });
+  
+    const labels = Object.keys(labelCounts);
+    const data = Object.values(labelCounts);
+  
+    return { labels, data };
+  }
+  
 
     
 }

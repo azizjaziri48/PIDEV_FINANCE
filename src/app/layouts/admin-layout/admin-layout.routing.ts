@@ -10,8 +10,10 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { FormationComponent } from 'app/component/formation/formation.component';
 import { SupportComponent } from 'app/component/support/support.component';
+import { ProjetIComponent } from 'app/component/projet-i/projet-i.component';
 
 export const AdminLayoutRoutes: Routes = [
+    { path: 'projet d\'investissement',  component: ProjetIComponent },
     { path: 'formation',      component: FormationComponent },
     { path: 'support',      component: SupportComponent },
     { path: 'dashboard',      component: HomeComponent },
